@@ -17,7 +17,9 @@ def div(child: Dict):
     if child["annotations"]["underline"]:
         r = f"<u>{r}</u>"
     if child["annotations"]["color"] and child["annotations"]["color"] != "default":
-        r = f'<font color={child["annotations"]["color"]}>{r}</font>'
-        pass
+        # 字体颜色和背景颜色（二选一）
+        if "_background" in child["annotations"]["color"]:
+            r = f'<span style="background: {child["annotations"]["color"][:-11:1]};">{r}</span>'
+        else:
+            r = f'<span style="color: {child["annotations"]["color"]};">{r}</span>'
     return f"{r}"
-

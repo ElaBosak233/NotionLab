@@ -1,6 +1,3 @@
-import textwrap
-from typing import Dict
-
 from ..html import *
 
 toggle_parser = """

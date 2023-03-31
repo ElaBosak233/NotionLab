@@ -1,13 +1,8 @@
-from .util.html.elements import Toggle, TableRow
+import textwrap
 
 from . import Converter, HtmlConverter
+from .util.html.elements import Toggle, TableRow
 from .util.md import div
-
-code_parser = """
-```
-{}
-```
-"""
 
 
 class MDConverter(Converter):
@@ -54,7 +49,11 @@ class MDConverter(Converter):
                 r = ""
                 for child in b_ctx["rich_text"]:
                     r += child["text"]["content"]
-                self._md += code_parser.format(r) + "\n"
+                self._md += textwrap.dedent("""
+                    ```
+                    {}
+                    ```
+                    """).format(r) + "\n"
             elif b_type == "image":
                 if b_ctx["type"] == "file":
                     self._md += f'![]({b_ctx["file"]["url"]})\n'

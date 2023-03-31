@@ -1,5 +1,3 @@
-import textwrap
-
 from ..html import *
 
 

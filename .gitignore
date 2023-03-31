@@ -5,5 +5,4 @@ NotionLab.egg-info
 dist
 *.pyc
 *__pycache__
-test.html
-test.md
+out/
