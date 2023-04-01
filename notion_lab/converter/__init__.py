@@ -1,3 +1,3 @@
 from .Converter import Converter
-from .HtmlConverter import HtmlConverter
-from .MDConverter import MDConverter
+from .HtmlCvt import HtmlCvt
+from .MDCvt import MDCvt

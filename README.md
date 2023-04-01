@@ -8,7 +8,7 @@
 ![](https://img.shields.io/github/v/tag/ElaBosak233/NotionLab?include_prereleases&style=flat-square)
 
 </div>
- 
+
 ***NotionLab is an easy-to-use Notion toolkit based on the [Notion Python SDK](https://github.com/ramnes/notion-sdk-py).
 Designed to tap the maximum potential of the [Notion API](https://developers.notion.com/).***
 
@@ -22,12 +22,12 @@ pip install NotionLab
 
 ```python
 import os
-from notion_lab.converter import HtmlConverter
+from notion_lab.converter import HtmlCvt
 
-cvt = HtmlConverter(api_token=os.environ["NOTION_API_TOKEN"],
-                    block_id="52a812df2b5e444285af7ebbd5a135bc",
-                    is_page=True
-                    )
+cvt = HtmlCvt(api_token=os.environ["NOTION_API_TOKEN"],
+              block_id="52a812df2b5e444285af7ebbd5a135bc",
+              is_page=True
+              )
 
 print(cvt.convert())
 ```

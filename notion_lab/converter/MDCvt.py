@@ -1,11 +1,11 @@
 import textwrap
 
-from . import Converter, HtmlConverter
+from . import Converter, HtmlCvt
 from .util.html.elements import Toggle, TableRow
 from .util.md import div
 
 
-class MDConverter(Converter):
+class MDCvt(Converter):
     _md: str = ""
     _numbered_list_counter: int = 1
 
@@ -50,10 +50,10 @@ class MDConverter(Converter):
                 for child in b_ctx["rich_text"]:
                     r += child["text"]["content"]
                 self._md += textwrap.dedent("""
+                    ```{0}
+                    {1}
                     ```
-                    {}
-                    ```
-                    """).format(r) + "\n"
+                    """).format(b_ctx["language"], r) + "\n"
             elif b_type == "image":
                 if b_ctx["type"] == "file":
                     self._md += f'![]({b_ctx["file"]["url"]})\n'
@@ -78,10 +78,7 @@ class MDConverter(Converter):
                 self._md += f"{self._numbered_list_counter}. {r}\n"
                 self._numbered_list_counter += 1
             elif b_type == "table":
-                """
-                表格转换
-                """
-                r: str = HtmlConverter(
+                r: str = HtmlCvt(
                     api_token=self._api_token,
                     block_id=b_id,
                     is_page=False,
@@ -89,12 +86,9 @@ class MDConverter(Converter):
                 ).convert()
                 self._md += f'<table>{r}</table>'
             elif b_type == "table_row":
-                """
-                表格行转换
-                """
                 self._md += TableRow(b_ctx).export()
             elif b_type == "toggle":
-                r: str = MDConverter(
+                r: str = MDCvt(
                     api_token=self._api_token,
                     block_id=b_id,
                     is_page=False
