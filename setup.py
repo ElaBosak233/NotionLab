@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="NotionLab",
-    version="1.1.1",
+    version="1.1.3",
     keywords=["notion", "kit", "parser", "html", "markdown", "lab"],
     description="A kit for Notion based on Notion Python SDK.",
     long_description=open("README.md").read(),
