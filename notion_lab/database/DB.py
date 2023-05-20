@@ -1,6 +1,7 @@
 from typing import Dict, Optional
 
 from notion_client import Client
+from ..converter.util.html.elements import Text
 
 
 class DB(object):
@@ -30,16 +31,25 @@ class DB(object):
         m = []
         for data in self._ctx["results"]:
             dc = {"id": data["id"]}
-            print(data["properties"])
             for d_property in data["properties"]:
-                if data["properties"][d_property]["type"] == "title":
+                d_type = data["properties"][d_property]["type"]
+                if d_type == "title":
+                    # 标题
                     dc[d_property] = data["properties"][d_property]["title"][0]["plain_text"]
-                elif data["properties"][d_property]["type"] == "url":
-                    dc[d_property] = data["properties"][d_property]["url"]
-                elif data["properties"][d_property]["type"] == "multi_select":
+                elif d_type == ("url" or "email" or "tel" or "number"):
+                    # 链接
+                    if data["properties"][d_property][d_type] is not None:
+                        dc[d_property] = data["properties"][d_property][d_type]
+                elif d_type == "multi_select":
+                    # 复选框
                     ms = []
                     for i in data["properties"][d_property]["multi_select"]:
                         ms.append(i["name"])
                     dc[d_property] = ms
+                elif d_type == "rich_text":
+                    # 富文本
+                    if len(data["properties"][d_property]["rich_text"]) != 0:
+                        dc[d_property] = Text("text", data["properties"][d_property]).export()
+
             m.append(dc)
         return m

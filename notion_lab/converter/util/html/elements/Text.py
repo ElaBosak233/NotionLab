@@ -13,6 +13,8 @@ class Text:
         r = ""
         for child in self.b_ctx["rich_text"]:
             r += div(child)
+        if self.b_type == "text":
+            return r
         return textwrap.dedent(f"""
         <{text_mapping[self.b_type]}>
             {r}
