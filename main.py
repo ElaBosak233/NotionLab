@@ -8,7 +8,7 @@ from notion_lab.database import DB
 # c9fa055d79a84224b266bf5ebd9b2ca7
 
 block_id = "49b140d0-bed4-4343-b439-80c88d1bef83"
-database_id = "290cd6f4443e455d8873b9afad33b039"
+database_id = "f9a06212a8c6454b8dc034fcb4d146ad"
 
 
 def markdown_cvt_test():
@@ -28,10 +28,11 @@ def html_cvt_test():
 def database_traversal_test():
     db = DB(api_token=os.environ["NOTION_API_TOKEN"], database_id=database_id)
     for i in db.traversal():
-        cvt = MDCvt(api_token=os.environ["NOTION_API_TOKEN"], block_id=i["id"])
-        f = codecs.open(f'out/db/{i["title"]}.md', 'w', 'utf-8')
-        f.write(cvt.convert())
-        f.close()
+        # cvt = MDCvt(api_token=os.environ["NOTION_API_TOKEN"], block_id=i["id"])
+        # f = codecs.open(f'out/db/{i["title"]}.md', 'w', 'utf-8')
+        # f.write(cvt.convert())
+        # f.close()
+        print(i)
 
 
 if __name__ == "__main__":
