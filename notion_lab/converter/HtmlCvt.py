@@ -14,15 +14,21 @@ class HtmlCvt(Converter):
             api_token: str,
             block_id: str,
             is_page: bool = False,
+            is_table: bool = False,
             has_column_header: bool = False
     ) -> None:
+        if not is_table:
+            # 前缀, 强制使用 UTF-8
+            self._html += textwrap.dedent("""
+            <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+            </head>
+            """)
         super().__init__(api_token, block_id, is_page, has_column_header)
 
     def convert(
             self
     ) -> str:
-        # 前缀, 强制使用 UTF-8
-        self._html += '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">'
         if self._title:
             self._html += f"<title>{self._title}</title>"
         for block in self._ctx:

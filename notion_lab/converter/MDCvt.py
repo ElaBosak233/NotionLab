@@ -82,6 +82,7 @@ class MDCvt(Converter):
                     api_token=self._api_token,
                     block_id=b_id,
                     is_page=False,
+                    is_table=True,
                     has_column_header=b_ctx["has_column_header"]
                 ).convert()
                 self._md += f'<table>{r}</table>'
